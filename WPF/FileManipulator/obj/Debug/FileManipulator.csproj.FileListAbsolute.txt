@@ -1,0 +1,17 @@
+C:\Users\F1322\source\repos\FileManipulator\FileManipulator\bin\Debug\FileManipulator.exe.config
+C:\Users\F1322\source\repos\FileManipulator\FileManipulator\bin\Debug\FileManipulator.exe
+C:\Users\F1322\source\repos\FileManipulator\FileManipulator\bin\Debug\FileManipulator.pdb
+C:\Users\F1322\source\repos\FileManipulator\FileManipulator\obj\Debug\FileManipulator.csprojAssemblyReference.cache
+C:\Users\F1322\source\repos\FileManipulator\FileManipulator\obj\Debug\App.g.cs
+C:\Users\F1322\source\repos\FileManipulator\FileManipulator\obj\Debug\FileManipulator_MarkupCompile.cache
+C:\Users\F1322\source\repos\FileManipulator\FileManipulator\obj\Debug\FileManipulator_MarkupCompile.lref
+C:\Users\F1322\source\repos\FileManipulator\FileManipulator\obj\Debug\FileManipulator.g.resources
+C:\Users\F1322\source\repos\FileManipulator\FileManipulator\obj\Debug\FileManipulator.Properties.Resources.resources
+C:\Users\F1322\source\repos\FileManipulator\FileManipulator\obj\Debug\FileManipulator.csproj.GenerateResource.cache
+C:\Users\F1322\source\repos\FileManipulator\FileManipulator\obj\Debug\FileManipulator.csproj.CoreCompileInputs.cache
+C:\Users\F1322\source\repos\FileManipulator\FileManipulator\obj\Debug\FileManipulator.exe
+C:\Users\F1322\source\repos\FileManipulator\FileManipulator\obj\Debug\FileManipulator.pdb
+C:\Users\F1322\source\repos\FileManipulator\FileManipulator\obj\Debug\View\MainWindow.g.cs
+C:\Users\F1322\source\repos\FileManipulator\FileManipulator\obj\Debug\View\MainWindow.baml
+C:\Users\F1322\source\repos\FileManipulator\FileManipulator\obj\Debug\View\ManipulatorView.g.cs
+C:\Users\F1322\source\repos\FileManipulator\FileManipulator\obj\Debug\View\ManipulatorView.baml
