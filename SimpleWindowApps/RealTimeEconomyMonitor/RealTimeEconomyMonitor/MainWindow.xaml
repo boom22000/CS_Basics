@@ -6,114 +6,127 @@
         xmlns:local="clr-namespace:RealTimeEconomyMonitor"
         mc:Ignorable="d"
         Title="실시간 세계 경제 흐름 - 개발자 조성범" Height="800" Width="1200">
+
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition/>
-            <RowDefinition Height="5*"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="Currency" TextAlignment="Center" 
+        <Rectangle x:Name="Dim" Visibility="Hidden" Canvas.ZIndex="1" Width="auto" Height="auto" Canvas.Top="100" Canvas.Left="100" Fill="gray" Opacity="0.5"/>
+        <Image x:Name="Spinner" Visibility="Hidden" Canvas.ZIndex="2" 
+                   Width="120" Height="120" 
+                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                   Source="Images/loading.png"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Currency" TextAlignment="Center" 
                        VerticalAlignment="Center"
                        FontSize="16"
                        FontWeight="Bold"
                        Background="#88EE88"/>
-            <TextBlock Grid.Column="2" Text="Index" TextAlignment="Center" 
+                <TextBlock Grid.Column="2" Text="Index" TextAlignment="Center" 
                        VerticalAlignment="Center"
                        FontSize="16"
                        FontWeight="Bold"
                        Background="LightSkyBlue"/>
-        </Grid>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
-                <ListBox x:Name="lstBx_Currency"
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <ListBox x:Name="lstBx_Currency"
                                      ScrollViewer.VerticalScrollBarVisibility="Visible"
                                      ItemsSource="{Binding lstBx_Currency_Items}"
                                      SelectedItem="{Binding lstBx_Currency_Selected}"
                                      SelectionMode="Extended">
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListBoxItem}">
-                            <Setter Property="Panel.Height" Value="32"/>
-                            <EventSetter Event="MouseLeftButtonUp" Handler="lstBx_Currency_Click"/>
-                        </Style>
-                    </ListBox.ItemContainerStyle>
-                </ListBox>
-            </Grid>
-            <Grid Grid.Column="1">
-                <ListBox x:Name="lstBx_Index"
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="Panel.Height" Value="32"/>
+                                <Setter Property="BorderBrush" Value="Gray"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <ListBox x:Name="lstBx_Index"
                                      ScrollViewer.VerticalScrollBarVisibility="Visible"
                                      ItemsSource="{Binding lstBx_Index_Items}"
                                      SelectedItem="{Binding lstBx_Index_Selected}"
                                      SelectionMode="Extended">
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListBoxItem}">
-                            <Setter Property="Panel.Height" Value="32"/>
-                            <EventSetter Event="MouseLeftButtonUp" Handler="lstBx_Index_Click"/>
-                        </Style>
-                    </ListBox.ItemContainerStyle>
-                </ListBox>
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="Panel.Height" Value="32"/>
+                                <Setter Property="BorderBrush" Value="Gray"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+                </Grid>
             </Grid>
-        </Grid>
-        
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="HOT" TextAlignment="Center" 
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="HOT" TextAlignment="Center" 
                        VerticalAlignment="Center"
                        FontSize="16"
                        FontWeight="Bold"
                        Background="#EE8888"/>
-            <TextBlock Grid.Column="2" Text="News" TextAlignment="Center" 
+                <TextBlock Grid.Column="2" Text="News" TextAlignment="Center" 
                        VerticalAlignment="Center"
                        FontSize="16"
                        FontWeight="Bold"
                        Background="#EEEE88"/>
-        </Grid>
-        
-        <Grid Grid.Row="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
-                <ListBox x:Name="lstBx_Hots"
+            </Grid>
+
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <ListBox x:Name="lstBx_Hots"
                                      ScrollViewer.VerticalScrollBarVisibility="Visible"
                                      ItemsSource="{Binding lstBx_Hots_Items}"
                                      SelectedItem="{Binding lstBx_Hots_Selected}"
                                      SelectionMode="Extended">
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListBoxItem}">
-                            <Setter Property="Panel.Height" Value="32"/>
-                            <EventSetter Event="MouseLeftButtonUp" Handler="lstBx_Hots_Click"/>
-                        </Style>
-                    </ListBox.ItemContainerStyle>
-                </ListBox>
-            </Grid>
-            
-            <Grid Grid.Column="1">
-                <ListBox x:Name="lstBx_News"
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="Panel.Height" Value="32"/>
+                                <Setter Property="BorderBrush" Value="Gray"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <ListBox x:Name="lstBx_News"
                                      ScrollViewer.VerticalScrollBarVisibility="Visible"
                                      ItemsSource="{Binding lstBx_News_Items}"
                                      SelectedItem="{Binding lstBx_News_Selected}"
                                      SelectionMode="Extended">
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListBoxItem}">
-                            <Setter Property="Panel.Height" Value="32"/>
-                            <EventSetter Event="MouseLeftButtonUp" Handler="lstBx_News_Click"/>
-                        </Style>
-                    </ListBox.ItemContainerStyle>
-                </ListBox>
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="Panel.Height" Value="32"/>
+                                <Setter Property="BorderBrush" Value="Gray"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <EventSetter Event="MouseLeftButtonUp" Handler="lstBx_News_Click"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+                </Grid>
             </Grid>
         </Grid>
     </Grid>

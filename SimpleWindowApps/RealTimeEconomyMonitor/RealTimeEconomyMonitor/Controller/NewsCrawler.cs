@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 using Newtonsoft.Json.Linq;
 using RealTimeEconomyMonitor.Model;
 
@@ -13,40 +14,65 @@ namespace RealTimeEconomyMonitor.Controller
 {
     public class NewsCrawler
     {
-        string url = "https://openapi.naver.com/v1/search/news.json?"+"query=경제&display=40&sort=sim";
+        string url;
         HttpWebRequest request;
-        string CurTime = "";
-        public NewsCrawler()
+        HttpWebResponse response=null;
+        Stream stream=null;
+        StreamReader reader=null;
+
+        public NewsCrawler() 
         {
+            url="https://openapi.naver.com/v1/search/news.json?" + "query=경제&display=40&sort=date";
             request = (HttpWebRequest)WebRequest.Create(url);
-            request.Headers.Add("X-Naver-Client-Id", "vs9MqBoJfbXGIHh9mMrN");
-            request.Headers.Add("X-Naver-Client-Secret", "NOjjH1zF1b");
+            request.Headers.Add("X-Naver-Client-Id", Properties.Settings.Default.NAVER_CLIENT_ID);
+            request.Headers.Add("X-Naver-Client-Secret", Properties.Settings.Default.NAVER_SECRET_KEY);
             request.ContentType = "application/json";
             request.Method = "GET";
-            CurTime=DateTime.Now.ToString("yyyy-MM-dd");
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            Stream stream = response?.GetResponseStream();
-            StreamReader reader = new StreamReader(stream, Encoding.UTF8);
-            string JsonString = reader?.ReadToEnd();
-            JObject Json = JObject.Parse(JsonString);
-            
-            JArray JsonArray = JArray.Parse(Json["items"].ToString());
-            MainWindow.NewsList.Clear();
-            if (JsonArray.Count>0)
+        }
+
+        public async void Run()
+        {
+            try
             {
-                for(int i=0;i<JsonArray.Count;i++) 
+                response = await Task.Run(() => (HttpWebResponse)request.GetResponse());
+                if (response == null || response.StatusCode!=HttpStatusCode.OK) return;
+
+                stream = await Task.Run(()=> response.GetResponseStream());
+                if (stream == null) return;
+                reader = new StreamReader(stream, Encoding.UTF8);
+                
+                string JsonString = reader?.ReadToEnd();
+                if (string.IsNullOrEmpty(JsonString)) return;
+
+                JObject Json = JObject.Parse(JsonString);
+                if (Json == null) return;
+                JArray JsonArray = JArray.Parse(Json["items"].ToString());
+
+
+                if (JsonArray!=null && JsonArray.Count > 0)
                 {
-                    NewsModel content = new NewsModel();
-                    content.Title = JsonArray[i]["title"]?.ToString();
-                    content.Link = JsonArray[i]["originallink"]?.ToString();
-                    MainWindow.NewsList.Add(content);
-                    System.Diagnostics.Debug.WriteLine(content);
+                    MainWindow.main.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+                        {
+                            MainWindow.NewsList.Clear();
+                            Utils.StringParser parser = new Utils.StringParser();
+                            for (int i = 0; i < JsonArray.Count; i++)
+                            {
+                                NewsModel content = new NewsModel();
+                                content.Title = JsonArray[i]["title"]?.ToString();
+                                content.Link = JsonArray[i]["originallink"]?.ToString();
+
+                                MainWindow.NewsList.Add(content);
+                                MainWindow.main.lstBx_News.Items.Add(parser.HTMLParser(content.Title));
+                            }
+                        })
+                    );
                 }
             }
-
-            stream?.Close();
-            response?.Close();
-            reader?.Close();
+            catch (Exception err)
+            {
+                System.Diagnostics.Debug.WriteLine(err);
+                return;
+            }
         }
     }
 }
